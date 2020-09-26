@@ -12,6 +12,7 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import apiBuscaLetra from '../../api/apiBuscaLetra.js';
+import axios from 'axios';
 
 const Home = ({ navigation }) => {
 
@@ -21,11 +22,12 @@ const Home = ({ navigation }) => {
   async function buscaLetra(){
     
     const response = await apiBuscaLetra.get(`${artista}/${musica}`);
+    const imagem = await axios.get('https://source.unsplash.com/1600x900/?music');
     
     if(response.data.lyrics == ""){
       navigation.navigate('SearchMusicNotFound');
     }else{
-      navigation.navigate('SearchResult', { artista, musica, response });
+      navigation.navigate('SearchResult', { artista, musica, response, imagem });
     }
     
   }
@@ -79,6 +81,14 @@ const Home = ({ navigation }) => {
             <Text style={styles.buscar}>Buscar</Text>
           </View>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.ultimasBuscasButton}
+          onPress={() => navigation.navigate('LatestSearches')}
+        >
+          <Text style={styles.ultimasBuscas}>Últimas buscas</Text>
+        </TouchableOpacity>
+
         </ScrollView>
       </LinearGradient>
     </>
@@ -160,6 +170,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFB703'
   },
+  ultimasBuscasButton:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 50,
+    marginLeft: largura/6,
+    marginRight: largura/6,
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: "#FFB703",
+  },
+  ultimasBuscas:{
+    marginTop: 13,
+    marginBottom: 13,
+    fontFamily: 'OpenSans-Bold',
+    fontSize: 16,
+    color: '#FFB703'
+  }
 });
 
 export default Home;

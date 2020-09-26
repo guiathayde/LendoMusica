@@ -6,6 +6,7 @@ import Home from './Views/Home/Home.js';
 import SearchResult from './Views/SearchResult/SearchResult.js';
 import SearchMusicNotFound from './Views/SearchMusicNotFound/SearchMusicNotFound.js';
 import Result from './Views/Result/Result.js';
+import LatestSearches from './Views/LatestSearches/LatestSearches.js';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="LatestSearches" component={LatestSearches} />
         <Stack.Screen name="SearchResult" component={SearchResult} />
         <Stack.Screen name="SearchMusicNotFound" component={SearchMusicNotFound} />
         <Stack.Screen name="Result" component={Result} />

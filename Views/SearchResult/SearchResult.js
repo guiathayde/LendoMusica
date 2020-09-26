@@ -11,13 +11,15 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import axios from 'axios';
 
 const SearchResult = ({ route, navigation }) => {
 
   const { artista } = route.params;
   const { musica } = route.params;
   const { response } = route.params;
+  const { imagem } = route.params;
+
+  const urlImagem = imagem.request.responseURL;
 
   return (
     <>
@@ -40,11 +42,11 @@ const SearchResult = ({ route, navigation }) => {
         
         <TouchableOpacity 
           style={styles.boxMeio}
-          onPress={() => navigation.navigate('Result', {response, artista, musica})}
+          onPress={() => navigation.navigate('Result', {response, artista, musica, imagem})}
         >
           <ImageBackground
-            source={require('../../res/img/imagem.png')}
             style={styles.imagem}
+            source={{uri: urlImagem}}
           >
             <View style={styles.textosImagem}>
               <Text style={styles.textoArtistaImagem}>{ artista }</Text>
@@ -125,6 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: 274,
     height: 152,
+    borderRadius: 10,
     backgroundColor: 'black',
     opacity: 0.5
   },

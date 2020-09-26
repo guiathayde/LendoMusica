@@ -34,12 +34,15 @@ const Result = ({ route, navigation }) => {
           </View>
 
           <View style={styles.voltarBusca}>
-            <Image
-              source={require('../../res/img/seta_esquerda.png')}
-              style={styles.seta}
-            />
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Text style={styles.fraseVoltar}>Voltar para a busca</Text>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('Home')}
+              style={styles.voltar}
+            >
+              <Image
+                source={require('../../res/img/seta_esquerda.png')}
+                style={styles.seta}
+              />
+              <Text style={styles.fraseVoltar}>Voltar para a busca</Text>
             </TouchableOpacity>
           </View>
           
@@ -88,7 +91,9 @@ const styles = StyleSheet.create({
   },
   voltarBusca:{
     marginTop: 40,
-    flexDirection: 'row',
+  },
+  voltar:{
+    flexDirection: 'row'
   },
   seta:{
     width: 22,
