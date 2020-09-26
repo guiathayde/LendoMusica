@@ -11,8 +11,24 @@ import {
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
+import apiBuscaLetra from '../../api/apiBuscaLetra.js';
 
 const Home = ({ navigation }) => {
+
+  const [artista, setArtista] = useState("");
+  const [musica, setMusica] = useState("");
+
+  async function buscaLetra(){
+    
+    const response = await apiBuscaLetra.get(`${artista}/${musica}`);
+    
+    if(response.data.lyrics == ""){
+      navigation.navigate('SearchMusicNotFound');
+    }else{
+      navigation.navigate('SearchResult', { artista, musica, response });
+    }
+    
+  }
   
   return (
     <>
@@ -38,7 +54,7 @@ const Home = ({ navigation }) => {
             style={styles.input}
             placeholder={'Insira o nome do artista'}
             placeholderTextColor='#828282'
-            onChangeText={texto => setArtista(texto)}
+            onChangeText={texto => setArtista(texto.trim())}
           />
           <Text style={styles.barraInput}></Text>
           <Text style={styles.musica}>Música</Text>
@@ -46,14 +62,14 @@ const Home = ({ navigation }) => {
             style={styles.input}
             placeholder={'Insira o nome da música'}
             placeholderTextColor='#828282'
-            onChangeText={texto => setMusica(texto)}
+            onChangeText={texto => setMusica(texto.trim())}
           />
           <Text style={styles.barraInput}></Text>
           </View>
         
         <TouchableOpacity 
           style={styles.buscarButton}
-          onPress={() => navigation.navigate('SearchResult')}
+          onPress={() => buscaLetra()}
         >
           <View style={styles.dentroButton}>
             <Image 

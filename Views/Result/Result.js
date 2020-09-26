@@ -10,7 +10,11 @@ import {
   ScrollView
 } from 'react-native';
 
-const Result = ({ navigation }) => {
+const Result = ({ route, navigation }) => {
+
+  const { response } = route.params;
+  const { artista } = route.params;
+  const { musica } = route.params;
 
   return (
     <>
@@ -40,11 +44,11 @@ const Result = ({ navigation }) => {
           </View>
           
           <View style={styles.cabecalhoLetra}>
-            <Text style={styles.nomeMusica}>O bêbado e a equilibrista</Text>
-            <Text style={styles.artista}>CANÇÃO DE ELIS REGINA</Text>
+            <Text style={styles.nomeMusica}>{ musica }</Text>
+            <Text style={styles.artista}>Canção de { artista }</Text>
           </View>
 
-          <Text style={styles.letraMusica}>Letra da música</Text>
+          <Text style={styles.letraMusica}>{response.data.lyrics}</Text>
 
           <Text style={styles.fraseFinal}>Curtiu? Busque mais letras.</Text>
           
@@ -128,6 +132,7 @@ const styles = StyleSheet.create({
   buscarButton:{
     backgroundColor: '#219EBC',
     marginTop: 30,
+    marginBottom: 40,
     paddingLeft: largura/6,
     paddingRight: largura/6,
     borderRadius: 4,

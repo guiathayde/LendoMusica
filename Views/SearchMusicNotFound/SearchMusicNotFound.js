@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Dimensions, 
 } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 
 const SearchMusicNotFound = ({ navigation }) => {
@@ -20,6 +21,7 @@ const SearchMusicNotFound = ({ navigation }) => {
       <LinearGradient colors={['#023047', '#000000']} style={styles.linearGradient}
       style={styles.container}
       >
+        <ScrollView>
       
         <View style={styles.boxTop}>
           <Image 
@@ -50,7 +52,9 @@ const SearchMusicNotFound = ({ navigation }) => {
             <Text style={styles.buscar}>Nova Busca</Text>
           </View>
         </TouchableOpacity>
-      
+
+        </ScrollView>
+
       </LinearGradient>
     </>
   );
@@ -109,6 +113,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  imgBuscar:{
+    width: 22,
+    height: 24
   },
   buscar:{
     marginTop: 13,
