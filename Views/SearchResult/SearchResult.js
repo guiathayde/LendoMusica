@@ -17,9 +17,6 @@ const SearchResult = ({ route, navigation }) => {
   const { artista } = route.params;
   const { musica } = route.params;
   const { response } = route.params;
-  const { imagem } = route.params;
-
-  const urlImagem = imagem.request.responseURL;
 
   return (
     <>
@@ -42,17 +39,12 @@ const SearchResult = ({ route, navigation }) => {
         
         <TouchableOpacity 
           style={styles.boxMeio}
-          onPress={() => navigation.navigate('Result', {response, artista, musica, imagem})}
+          onPress={() => navigation.navigate('Result', {response, artista, musica})}
         >
-          <ImageBackground
-            style={styles.imagem}
-            source={{uri: urlImagem}}
-          >
-            <View style={styles.textosImagem}>
-              <Text style={styles.textoArtistaImagem}>{ artista }</Text>
-              <Text style={styles.textoNomeMusicaImagem}>{ musica }</Text>
-            </View>
-          </ImageBackground>
+          <View style={styles.buttonLetraEncontrada}>
+            <Text style={styles.textoArtista}>{ artista }</Text>
+            <Text style={styles.textoNomeMusica}>{ musica }</Text>
+          </View>
         </TouchableOpacity>
         
         <Text style={styles.pergunta}>Não encontrou o que procurava?</Text>
@@ -102,34 +94,26 @@ const styles = StyleSheet.create({
     marginTop: 49,
   },
   boxMeio:{
-    marginTop: 38,
-    alignItems: 'center',
+    marginTop: 50,
   },
-  textosImagem:{
-    marginLeft: 20,
-    marginBottom: 13,
-    backgroundColor: 'transparent',
-    opacity: 1
+  buttonLetraEncontrada:{
+    paddingLeft: largura/6,
+    paddingRight: largura/6,
+    marginBottom: 80,
+    borderRadius: 4,
+    backgroundColor: '#219EBC',
   },
-  textoArtistaImagem:{
+  textoArtista:{
+    marginTop: 20,
     fontFamily: 'OpenSans-Bold',
     fontSize: 16,
     color: '#FFFFFF',
-    opacity: 1
   },
-  textoNomeMusicaImagem:{
+  textoNomeMusica:{
+    marginBottom:20,
     fontFamily: 'OpenSans-Regular',
     fontSize: 16,
     color: "#FFFFFF",
-    opacity: 1
-  },
-  imagem:{
-    justifyContent: 'flex-end',
-    width: 274,
-    height: 152,
-    borderRadius: 20,
-    backgroundColor: 'black',
-    opacity: 0.5
   },
   pergunta:{
     marginTop: 40,

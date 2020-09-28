@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {}from 'react';
 import {
   StyleSheet,
   View,
@@ -14,22 +14,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const LatestSearches = ({ route, navigation }) => {
 
-  /*const { nomeArtista } = route.params;
-  const { nomeMusica } = route.params;
-  console.log(nomeArtista, nomeMusica)*/
-
   const { storage } = route.params;
   console.log(storage)
-
-  const lerArmazenamento = async () => {
-    let keys = []
-    try {
-      keys = await AsyncStorage.getAllKeys()
-    } catch(e) {
-      console.log('deu ruim')
-    }
-    console.log(keys)
-  }
 
   const limpaStorage = async () => {
     try {
@@ -41,14 +27,11 @@ const LatestSearches = ({ route, navigation }) => {
     console.log('Storage limpa')
   }
 
-  let button = 
-    <TouchableOpacity 
-      style={styles.button}
-    >
-      <View style={styles.dentroMusicasButton}>
-        <Text style={styles.textoButton}>{storage}</Text>
-      </View>
-    </TouchableOpacity>
+  let pesquisas;
+  pesquisas = 
+    <View style={styles.dentroMusicasButton}>
+      <Text style={styles.textoPesquisa}>{storage.toString().replace(/,/gi, "\n\n")}</Text>
+    </View>
 
   return (
     <>
@@ -73,16 +56,7 @@ const LatestSearches = ({ route, navigation }) => {
             </TouchableOpacity>
           </View>
 
-          {button}
-
-          <TouchableOpacity 
-            style={styles.button}
-            onPress={() => lerArmazenamento()}
-          >
-            <View style={styles.dentroMusicasButton}>
-              <Text style={styles.textoButton}>Quem ta no armazenamento</Text>
-            </View>
-          </TouchableOpacity>
+          {pesquisas}
 
           <TouchableOpacity
             style={styles.buttonBuscar}
@@ -127,6 +101,12 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Regular',
     fontSize: 18,
     color: '#FFFFFF'
+  },
+  textoPesquisa:{
+    marginTop: 40,
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 28,
+    color: '#FFB703'
   },
   button: {
     marginTop: 50,
