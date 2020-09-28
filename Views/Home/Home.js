@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -13,14 +13,58 @@ import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import apiBuscaLetra from '../../api/apiBuscaLetra.js';
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Home = ({ navigation }) => {
 
   const [artista, setArtista] = useState("");
   const [musica, setMusica] = useState("");
 
-  async function buscaLetra(){
-    
+  const storeData = async (key, value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem(key, jsonValue)
+      console.log("deu bom", jsonValue, key)
+    } catch (e) {
+      console.log('Deu ruim no Async Storage')
+    }
+  }
+
+  const getData = async (key) => {
+    try {
+      const jsonValue = await AsyncStorage.getItem(key)
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch(e) {
+      console.log('deu ruim')
+    }
+  }
+
+  const lerArmazenamento = async () => {
+    let keys = []
+    try {
+      keys = await AsyncStorage.getAllKeys()
+    } catch(e) {
+      console.log('deu ruim')
+    }
+    console.log(keys)
+    return keys
+  }
+
+  async function latestSearches() {
+
+    /*const nomeArtista = await getData('artista')
+    const nomeMusica = await getData('musica')*/
+
+    const storage = await lerArmazenamento()
+
+    navigation.navigate('LatestSearches', { storage });
+  }
+
+  async function buscaLetra(save1, save2){
+
+    storeData(save1.artista, save1)
+    storeData(save2.musica, save2)
+
     const response = await apiBuscaLetra.get(`${artista}/${musica}`);
     const imagem = await axios.get('https://source.unsplash.com/1600x900/?music');
     
@@ -71,7 +115,7 @@ const Home = ({ navigation }) => {
         
         <TouchableOpacity 
           style={styles.buscarButton}
-          onPress={() => buscaLetra()}
+          onPress={() => buscaLetra({artista}, {musica})}
         >
           <View style={styles.dentroButton}>
             <Image 
@@ -84,7 +128,7 @@ const Home = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.ultimasBuscasButton}
-          onPress={() => navigation.navigate('LatestSearches')}
+          onPress={() => latestSearches()}
         >
           <Text style={styles.ultimasBuscas}>Últimas buscas</Text>
         </TouchableOpacity>

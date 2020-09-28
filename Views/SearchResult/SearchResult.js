@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: 274,
     height: 152,
-    borderRadius: 10,
+    borderRadius: 20,
     backgroundColor: 'black',
     opacity: 0.5
   },

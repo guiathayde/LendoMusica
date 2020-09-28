@@ -57,7 +57,7 @@ const Result = ({ route, navigation }) => {
           
           <TouchableOpacity 
             style={styles.buscarButton}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Home', { screen: 'LatestSearches', params: { artista, musica }})}
           >
             <View style={styles.dentroButton}>
               <Image 
