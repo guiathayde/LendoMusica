@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   buttonLetraEncontrada:{
     paddingLeft: largura/6,
     paddingRight: largura/6,
-    marginBottom: 80,
+    marginBottom: 40,
     borderRadius: 4,
     backgroundColor: '#219EBC',
   },

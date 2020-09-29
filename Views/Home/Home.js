@@ -8,6 +8,7 @@ import {
   TextInput, 
   TouchableOpacity,
   Dimensions,
+  ActivityIndicator
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,6 +19,7 @@ const Home = ({ navigation }) => {
 
   const [artista, setArtista] = useState("");
   const [musica, setMusica] = useState("");
+  const [loader, setLoader] = useState();
 
   const storeData = async (key, value) => {
     try {
@@ -49,12 +51,21 @@ const Home = ({ navigation }) => {
 
   async function buscaLetra(save){
 
+    setLoader(
+      <View style={styles.loaderStyles}>
+        <ActivityIndicator size="large" color="#FFB703" />
+        <Text style={styles.buscandoLoader}>Buscando letra...</Text>
+      </View>
+    )
+
     const response = await apiBuscaLetra.get(`${artista}/${musica}`);
     
     if(response.data.lyrics == ""){
+      setLoader(null)
       navigation.navigate('SearchMusicNotFound');
     }else{
       storeData(save.musica, save)
+      setLoader(null)
       navigation.navigate('SearchResult', { artista, musica, response });
     }
     
@@ -75,6 +86,7 @@ const Home = ({ navigation }) => {
             source={require('../../res/img/lendo_musica_logo.png')}
             style={styles.logo}
           />
+          {loader}
           <Text style={styles.buscarLetra}>Buscar letra</Text>
         </View>
         
@@ -217,7 +229,14 @@ const styles = StyleSheet.create({
   },
   loaderStyles:{
     marginTop: 50,
-    marginBottom: 5
+    marginBottom: 50
+  },
+  buscandoLoader:{
+    fontFamily: 'OpenSans-Bold',
+    fontSize: 24,
+    color: '#FFFFFF',
+    marginTop: 10,
+    marginBottom:50
   }
 });
 

@@ -1,4 +1,4 @@
-import React, {}from 'react';
+import React, { useState }from 'react';
 import {
   StyleSheet,
   View,
@@ -20,6 +20,7 @@ const LatestSearches = ({ route, navigation }) => {
   const limpaStorage = async () => {
     try {
       await AsyncStorage.clear()
+      setPesquisas(null)
     } catch(e) {
       console.log('deu ruim pra limpa o storage')
     }
@@ -27,11 +28,10 @@ const LatestSearches = ({ route, navigation }) => {
     console.log('Storage limpa')
   }
 
-  let pesquisas;
-  pesquisas = 
+  const [pesquisas, setPesquisas] = useState(
     <View style={styles.dentroMusicasButton}>
       <Text style={styles.textoPesquisa}>{storage.toString().replace(/,/gi, "\n\n")}</Text>
-    </View>
+    </View>);
 
   return (
     <>
