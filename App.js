@@ -2,11 +2,11 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from './Views/Home/Home.js';
-import SearchResult from './Views/SearchResult/SearchResult.js';
-import SearchMusicNotFound from './Views/SearchMusicNotFound/SearchMusicNotFound.js';
-import Result from './Views/Result/Result.js';
-import LatestSearches from './Views/LatestSearches/LatestSearches.js';
+import Home from './src/Views/Home/Home.js';
+import SearchResult from './src/Views/SearchResult/SearchResult.js';
+import SearchMusicNotFound from './src/Views/SearchMusicNotFound/SearchMusicNotFound.js';
+import Result from './src/Views/Result/Result.js';
+import LatestSearches from './src/Views/LatestSearches/LatestSearches.js';
 
 const Stack = createStackNavigator();
 
