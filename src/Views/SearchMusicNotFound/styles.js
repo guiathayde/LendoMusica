@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   buscarButton:{
+    paddingRight: 72,
+    paddingLeft: 72,
     marginTop: 30,
-    paddingLeft: largura/6,
-    paddingRight: largura/6,
     borderWidth: 1,
     borderRadius: 4,
     borderColor: "#FFB703",

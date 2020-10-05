@@ -1,12 +1,10 @@
 import React from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   StatusBar, 
   Image, 
   TouchableOpacity,
-  Dimensions, 
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';

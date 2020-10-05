@@ -6,7 +6,6 @@ import {
   Image, 
   TextInput, 
   TouchableOpacity,
-  ActivityIndicator
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,15 +17,14 @@ const Home = ({ navigation }) => {
 
   const [artista, setArtista] = useState("");
   const [musica, setMusica] = useState("");
-  const [loader, setLoader] = useState();
+  const [botaoHistorico, setBotaoHistorico] = useState(false);
 
   const storeData = async (key, value) => {
     try {
       const jsonValue = JSON.stringify(value)
       await AsyncStorage.setItem(key, jsonValue)
-      console.log("deu bom", jsonValue, key)
     } catch (e) {
-      console.log('Deu ruim no Async Storage')
+      console.log('Deu ruim pra grava no Async Storage')
     }
   }
 
@@ -35,7 +33,7 @@ const Home = ({ navigation }) => {
     try {
       keys = await AsyncStorage.getAllKeys()
     } catch(e) {
-      console.log('deu ruim')
+      console.log('Deu ruim pra ler o armazenamento do Async Storage')
     }
     console.log(keys)
     return keys
@@ -50,24 +48,31 @@ const Home = ({ navigation }) => {
 
   async function buscaLetra(save){
 
-    setLoader(
-      <View style={styles.loaderStyles}>
-        <ActivityIndicator size="large" color="#FFB703" />
-        <Text style={styles.buscandoLoader}>Buscando letra...</Text>
-      </View>
-    )
-
     const response = await apiBuscaLetra.get(`${artista}/${musica}`);
     
     if(response.data.lyrics == ""){
-      setLoader(null)
       navigation.navigate('SearchMusicNotFound');
     }else{
       storeData(save.musica, save)
-      setLoader(null)
+      setBotaoHistorico(true)
+      setArtista("")
+      setMusica("")
       navigation.navigate('SearchResult', { artista, musica, response });
     }
     
+  }
+
+  let ultimasBuscas;
+  if(botaoHistorico){
+    ultimasBuscas = 
+      <TouchableOpacity
+        style={styles.ultimasBuscasButton}
+        onPress={() => latestSearches()}
+      >
+        <Text style={styles.ultimasBuscas}>Últimas buscas</Text>
+      </TouchableOpacity>
+  }else{
+    ultimasBuscas = null;
   }
 
   return (
@@ -76,7 +81,7 @@ const Home = ({ navigation }) => {
       backgroundColor='black'
       barStyle='light-content'
       />
-      <LinearGradient colors={['#023047', '#000000']} style={styles.linearGradient} style={styles.container}>
+      <LinearGradient colors={['#023047', '#000000']} style={styles.linearGradient}>
 
       <ScrollView>
         
@@ -85,7 +90,6 @@ const Home = ({ navigation }) => {
             source={require('../../../res/img/lendo_musica_logo.png')}
             style={styles.logo}
           />
-          {loader}
           <Text style={styles.buscarLetra}>Buscar letra</Text>
         </View>
         
@@ -121,12 +125,7 @@ const Home = ({ navigation }) => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.ultimasBuscasButton}
-          onPress={() => latestSearches()}
-        >
-          <Text style={styles.ultimasBuscas}>Últimas buscas</Text>
-        </TouchableOpacity>
+        {ultimasBuscas}
 
         </ScrollView>
       </LinearGradient>

@@ -1,12 +1,10 @@
 import React, { useState }from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   StatusBar,
   Image,
   TouchableOpacity,
-  Dimensions,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,17 +14,15 @@ import styles from './styles.js';
 const LatestSearches = ({ route, navigation }) => {
 
   const { storage } = route.params;
-  console.log(storage)
 
   const limpaStorage = async () => {
     try {
       await AsyncStorage.clear()
       setPesquisas(null)
+      setBotaoHistorico(false)
     } catch(e) {
       console.log('deu ruim pra limpa o storage')
     }
-  
-    console.log('Storage limpa')
   }
 
   const [pesquisas, setPesquisas] = useState(

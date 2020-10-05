@@ -1,15 +1,11 @@
-import { StyleSheet, Dimensions } from "react-native";
-
-const largura = Dimensions.get("screen").width;
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
     paddingLeft: 15,
     paddingRight: 15,
-  },
-  container:{
-    flex: 1,
+    alignItems: 'center'
   },
   boxTop:{
     marginTop: 60,
@@ -51,9 +47,9 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   buscarButton:{
+    paddingRight: 72,
+    paddingLeft: 72,
     marginTop: 50,
-    marginLeft: largura/6,
-    marginRight: largura/6,
     borderWidth: 1,
     borderRadius: 4,
     borderColor: "#FFB703",
@@ -79,8 +75,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 50,
-    marginLeft: largura/6,
-    marginRight: largura/6,
+    paddingRight: 72,
+    paddingLeft: 72,
     borderWidth: 1,
     borderRadius: 4,
     borderColor: "#FFB703",
@@ -91,17 +87,6 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Bold',
     fontSize: 16,
     color: '#FFB703'
-  },
-  loaderStyles:{
-    marginTop: 50,
-    marginBottom: 50
-  },
-  buscandoLoader:{
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 24,
-    color: '#FFFFFF',
-    marginTop: 10,
-    marginBottom:50
   }
 });
 

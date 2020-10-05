@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
   },
   cabecalhoLetra:{
     marginTop: 40,
-    alignItems: 'center',
   },
   nomeMusica:{
+    paddingRight: largura/2,
     fontFamily: 'OpenSans-Bold',
     fontSize: 24,
     color: '#023047'
@@ -55,17 +55,17 @@ const styles = StyleSheet.create({
     color: '#023047'
   },
   fraseFinal:{
-    marginTop: 40,
+    marginTop: 100,
     fontFamily: 'OpenSans-Bold',
     fontSize: 18,
     color: '#023047'
   },
   buscarButton:{
+    paddingRight: 72,
+    paddingLeft: 72,
     backgroundColor: '#219EBC',
-    marginTop: 30,
-    marginBottom: 40,
-    paddingLeft: largura/6,
-    paddingRight: largura/6,
+    marginTop: 50,
+    marginBottom: 50,
     borderRadius: 4,
     borderColor: "#FFB703",
   },
